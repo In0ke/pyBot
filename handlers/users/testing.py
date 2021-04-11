@@ -8,7 +8,10 @@ from states import Test
 
 
 @dp.message_handler(Command('test'))
-async def enter_test(message: types.Message):
+async def enter_test(message: types.Message, state: FSMContext):
+    data = await state.get_data()
+    await message.answer(str(data))
+
     await message.answer('Вы начали тестирование. \n'
                          'Вопрос №1 \n\n'
                          'Сколько вам лет')
@@ -45,5 +48,5 @@ async def answer_q2(message: types.Message, state: FSMContext):
     await message.answer(f'Ответ 2:  {answer2}')
 
     # await state.finish()
-    await state.reset_state()
-    # await state.reset_state(with_data=False)
+    # await state.reset_state()
+    await state.reset_state(with_data=False)
