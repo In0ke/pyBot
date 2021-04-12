@@ -73,7 +73,7 @@ class Database:
 
     def get_user_token(self, **kwargs):
         # SQL_EXAMPLE = "SELECT * FROM Users where id=1 AND Name='John'"
-        sql = "SELECT * FROM Users WHERE "
+        sql = "SELECT token FROM Users WHERE "
         sql, parameters = self.format_args(sql, kwargs)
 
         return self.execute(sql, parameters=parameters, fetchone=True)
