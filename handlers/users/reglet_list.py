@@ -12,7 +12,6 @@ async def get_server_list(message: types.Message):
     url = 'https://api.cloudvps.reg.ru/v1/reglets'
     request = requests.get(url, headers=token)
     response = request.json()
-    text = []
     for value in response["reglets"]:
         text = str([(value["name"], value["id"], value["ip"], value["image"]["name"])])
-    await message.answer(text=str(text))
+        await message.answer(text=str(text))
