@@ -33,6 +33,7 @@ class Database:
             id int NOT NULL,
             Name varchar(255) NOT NULL,
             email varchar(255),
+            token varchar(255),
             PRIMARY KEY (id)
             );
 """
@@ -45,13 +46,13 @@ class Database:
         ])
         return sql, tuple(parameters.values())
 
-    def add_user(self, id: int, name: str, email: str = None):
+    def add_user(self, id: int, name: str, email: str = None, token: str = None):
         # SQL_EXAMPLE = "INSERT INTO Users(id, Name, email) VALUES(1, 'John', 'John@gmail.com')"
 
         sql = """
-        INSERT INTO Users(id, Name, email) VALUES(?, ?, ?)
+        INSERT INTO Users(id, Name, email, token) VALUES(?, ?, ?, ?)
         """
-        self.execute(sql, parameters=(id, name, email), commit=True)
+        self.execute(sql, parameters=(id, name, email, token), commit=True)
 
     def select_all_user(self):
         sql = "SELECT * FROM Users"
@@ -70,6 +71,13 @@ class Database:
 
         return self.execute(sql, parameters=parameters, fetchone=True)
 
+    def get_user_token(self, **kwargs):
+        # SQL_EXAMPLE = "SELECT * FROM Users where id=1 AND Name='John'"
+        sql = "SELECT * FROM Users WHERE "
+        sql, parameters = self.format_args(sql, kwargs)
+
+        return self.execute(sql, parameters=parameters, fetchone=True)
+
     def count_users(self):
         return self.execute("SELECT COUNT(*) FROM Users;", fetchone=True)
 
@@ -80,6 +88,12 @@ class Database:
         UPDATE Users SET email=? WHERE id=?
         """
         return self.execute(sql, parameters=(email, id), commit=True)
+
+    def update_user_token(self, token, id):
+        sql = f"""
+        UPDATE Users SET token=? WHERE id=?
+        """
+        return self.execute(sql, parameters=(token, id), commit=True)
 
     def delete_users(self):
         self.execute("DELETE FROM Users WHERE TRUE", commit=True)
