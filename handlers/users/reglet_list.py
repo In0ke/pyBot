@@ -18,26 +18,26 @@ async def get_server_list(message: types.Message):
         text = str((value["name"], value["id"], value["ip"], value["image"]["name"], value['status']))
         await message.answer(text=str(text), reply_markup=button)
 
-
-@dp.callback_query_handler(text_contains="start")
-async def buying_pear(call: CallbackQuery, reglet_id: str):
-    await call.answer(cache_time=60)
-    pass
-
-
-@dp.callback_query_handler(text_contains="stop")
-async def buying_pear(call: CallbackQuery, reglet_id: str):
-    await call.answer(cache_time=60)
-    pass
-
-
-@dp.callback_query_handler(text_contains="reboot")
-async def buying_pear(call: CallbackQuery, reglet_id: str):
-    await call.answer(cache_time=60)
-    pass
-
-
-@dp.callback_query_handler(text_contains="delete")
-async def buying_pear(call: CallbackQuery, reglet_id: str):
-    await call.answer(cache_time=60)
-    pass
+#
+# @dp.callback_query_handler(text_contains="start")
+# async def buying_pear(call: CallbackQuery, reglet_id: str):
+#     await call.answer(cache_time=60)
+#     pass
+#
+#
+# @dp.callback_query_handler(text_contains="stop")
+# async def buying_pear(call: CallbackQuery, reglet_id: str):
+#     await call.answer(cache_time=60)
+#     pass
+#
+#
+# @dp.callback_query_handler(text_contains="reboot")
+# async def buying_pear(call: CallbackQuery, reglet_id: str):
+#     await call.answer(cache_time=60)
+#     pass
+#
+#
+# @dp.callback_query_handler(text_contains="delete")
+# async def buying_pear(call: CallbackQuery, reglet_id: str):
+#     await call.answer(cache_time=60)
+#     pass

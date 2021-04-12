@@ -9,5 +9,6 @@ from .balance_data import dp
 from .apps_list import dp
 from .os_list import dp
 from .reglet_list import dp
+from .create_a_server import dp
 
 __all__ = ["dp"]
