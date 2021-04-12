@@ -6,7 +6,7 @@ from loader import dp, db
 
 
 @dp.message_handler(Command('balance'))
-async def show_menu(message: types.Message):
+async def get_balance_data(message: types.Message):
     user_token = db.get_user_token(id=message.from_user.id)
     token = {'Authorization': f'Bearer {user_token[0]}'}
     url = 'https://api.cloudvps.reg.ru/v1/balance_data'
