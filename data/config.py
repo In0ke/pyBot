@@ -6,6 +6,19 @@ env.read_env()
 
 BOT_TOKEN = env.str("BOT_TOKEN")  # Забираем значение типа str
 ADMINS = env.list("ADMINS")  # Тут у нас будет список из админов
-IP = env.str("ip")  # Тоже str, но для айпи адреса хоста
+ip = env.str("ip")  # Тоже str, но для айпи адреса хоста
+PGUSER = env.str("PGUSER")
+PGPASSWORD = env.str("PGPASSWORD")
+DATABASE = env.str("DATABASE")
 
 banned_users = [123456789, 987654321]
+
+POSTGRES_URI = f"postgresql://{PGUSER}:{PGPASSWORD}@{ip}/{DATABASE}"
+aiogram_redis = {
+    'host': ip,
+}
+
+redis = {
+    'address': (ip, 6379),
+    'encoding': 'utf8'
+}
