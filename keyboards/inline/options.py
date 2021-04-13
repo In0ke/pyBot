@@ -1,5 +1,4 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from keyboards.inline.callback_datas import buy_callback
 
 button = InlineKeyboardMarkup(row_width=2)
 confirmation_button = InlineKeyboardMarkup(row_width=2)
@@ -21,14 +20,8 @@ delete_button = InlineKeyboardButton(text="Удалить сервер",
                                      callback_data='delete')
 button.insert(delete_button)
 
-ok_button = InlineKeyboardButton(text="Ok", callback_data="ok")
+ok_button = InlineKeyboardButton(text="Поехали", callback_data="go")
 confirmation_button.insert(ok_button)
+
 cancel_button = InlineKeyboardButton(text="Отмена", callback_data="cancel")
 confirmation_button.insert(cancel_button)
-
-
-apples_keyboard = InlineKeyboardMarkup(inline_keyboard=[
-    [
-        InlineKeyboardButton(text="Купи тут", url="https://freshmart.com.ua/product/yabloko-gala-116.html")
-    ]
-])
