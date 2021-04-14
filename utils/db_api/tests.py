@@ -4,18 +4,13 @@ db = Database()
 
 
 def test():
-    db.create_table_users()
-    users = db.select_all_user()
-    print(f'До добавления пользователей: {users=}')
-    db.add_user(1, '1', 'email_1')
-    db.add_user(2, '2', 'email_2')
-    db.add_user(3, '3', 'email_3')
-    db.add_user(4, '4', 'email_4')
-    db.add_user(5, '5', 'email_5')
-    users = db.select_all_user()
-    print(f'После добавления пользователей: {users=}')
-    user = db.select_user(Name="3", id=3)
-    print(f'Получил пользователя {user}')
+    db.create_table_tarif()
+    db.add_tarif('Start-0', '5', '512', '1', '215', 'start')
+    db.add_tarif('Start-1', '10', '1024', '1', '248', 'start')
+    db.add_tarif('Start-2', '15', '2048', '2', '590', 'start')
+    db.add_tarif('Start-3', '25', '4096', '2', '990', 'start')
+
+    print(db.select_tarif(category='start'))
 
 
 test()

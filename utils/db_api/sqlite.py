@@ -41,12 +41,14 @@ class Database:
 
     def create_table_tarif(self):
         sql = """
-        CREATE TABLE Users (
-            id int NOT NULL,
-            Name varchar(255) NOT NULL,
-            email varchar(255),
-            token varchar(255),
-            PRIMARY KEY (id)
+        CREATE TABLE Tarif (
+            Name varchar(50) NOT NULL,
+            Disk varchar(50),
+            ram varchar(50),
+            cpu varchar(50),
+            price varchar(50),
+            category varchar(50),
+            PRIMARY KEY (Name)
             );
 """
         self.execute(sql, commit=True)
@@ -65,6 +67,18 @@ class Database:
         INSERT INTO Users(id, Name, email, token) VALUES(?, ?, ?, ?)
         """
         self.execute(sql, parameters=(id, name, email, token), commit=True)
+
+    def add_tarif(self, Name: str, Disk: str, ram: str, cpu: str, price: str, category: str):
+        sql = """
+        INSERT INTO Tarif( Name, Disk, ram, cpu, price, category) VALUES(?, ?, ?, ?, ?, ?)
+        """
+        self.execute(sql, parameters=(id, Name, Disk, ram, cpu, price, category), commit=True)
+
+    def select_tarif(self, **kwargs):
+        sql = "SELECT * FROM Tarif WHERE "
+        sql, parameters = self.format_args(sql, kwargs)
+
+        return self.execute(sql, parameters=parameters, fetchone=True)
 
     def select_all_user(self):
         sql = "SELECT * FROM Users"
