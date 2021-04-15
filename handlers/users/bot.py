@@ -5,22 +5,8 @@
 # reglet_id = ''
 #
 #
-# tarif = ['Start-0, disk: 5, memory: 512, CPU: 1, price month: 215',
-#          'Start-1, disk: 10, memory: 1024, CPU: 1, price month: 248',
-#          'Start-2, disk: 15, memory: 2048, CPU: 2, price month: 590',
-#          'Start-3, disk: 25, memory: 4096, CPU: 2, price month: 990',
-#          'Cloud-1, disk: 25, memory: 1024, CPU: 1, price month: 298',
-#          'Cloud-2a, disk: 50, memory: 1024, CPU: 2, price month: 480',
-#          'Cloud-2b, disk: 50, memory: 2048, CPU: 1, price month: 660',
-#          'Cloud-3a, disk: 60, memory: 1024, CPU: 3, price month: 880',
-#          'Cloud-3b, disk: 60, memory: 2048, CPU: 2, price month: 880',
-#          'Cloud-3c, disk: 60, memory: 3072, CPU: 1, price month: 880',
-#          'Cloud-4, disk: 80, memory: 4096, CPU: 2, price month: 1590',
-#          'Cloud-5, disk: 100, memory: 6144, CPU: 4, price month: 2290',
-#          'Cloud-6, disk: 120, memory: 8192, CPU: 4, price month: 2890',
-#          'Cloud-7, disk: 160, memory: 10240, CPU: 6, price month: 3590',
-#          'Cloud-8, disk: 240, memory: 16384, CPU: 8, price month: 5830',
-#          'Cloud-9, disk: 320, memory: 24576, CPU: 12, price month: 9940',
+# tarif = [
+
 #          'Turbo-1, disk: 60, memory: 2048, CPU: 1, price month: 990',
 #          'Turbo-2, disk: 80, memory: 4096, CPU: 2, price month: 1870',
 #          'Turbo-3, disk: 80, memory: 6144, CPU: 3, price month: 2490',

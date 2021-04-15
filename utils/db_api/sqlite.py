@@ -2,7 +2,7 @@ import sqlite3
 
 
 class Database:
-    def __init__(self, path_to_db="data/main.db"):
+    def __init__(self, path_to_db="E:\pyBot\data\main.db"):
         self.path_to_db = path_to_db
 
     @property
@@ -36,7 +36,7 @@ class Database:
             token varchar(255),
             PRIMARY KEY (id)
             );
-"""
+        """
         self.execute(sql, commit=True)
 
     def create_table_tarif(self):
@@ -50,7 +50,29 @@ class Database:
             category varchar(50),
             PRIMARY KEY (Name)
             );
-"""
+        """
+        self.execute(sql, commit=True)
+
+    def create_table_os(self):
+        sql = """
+        CREATE TABLE Os (
+            name varchar (50) NOT NULL,
+            distribution varchar (50),
+            slug varchar (50),
+            PRIMARY KEY (slug)
+            );
+        """
+        self.execute(sql, commit=True)
+
+    def create_table_apps(self):
+        sql = """
+        CREATE TABLE Apps (
+            name varchar(50) NOT NULL,
+            distribution varchar (50),
+            slug varchar(50),
+            PRIMARY KEY (slug)
+            );
+        """
         self.execute(sql, commit=True)
 
     @staticmethod
@@ -72,13 +94,37 @@ class Database:
         sql = """
         INSERT INTO Tarif( Name, Disk, ram, cpu, price, category) VALUES(?, ?, ?, ?, ?, ?)
         """
-        self.execute(sql, parameters=(id, Name, Disk, ram, cpu, price, category), commit=True)
+        self.execute(sql, parameters=(Name, Disk, ram, cpu, price, category), commit=True)
+
+    def add_os(self, name: str, distribution: str, slug: str):
+        sql = """
+        INSERT INTO Os( name, distribution, slug) VALUES(?, ?, ?)
+        """
+        self.execute(sql, parameters=(name, distribution, slug), commit=True)
+
+    def add_app(self, name: str, distribution: str, slug: str):
+        sql = """
+        INSERT INTO Apps( name, distribution, slug) VALUES(?, ?, ?)
+        """
+        self.execute(sql, parameters=(name, distribution, slug), commit=True)
+
+    def select_all_os(self):
+        sql = """
+        SELECT * FROM Os
+        """
+        return self.execute(sql, fetchall=True)
+
+    def select_all_aps(self):
+        sql = """
+        SELECT * FROM Apps
+        """
+        return self.execute(sql, fetchall=True)
 
     def select_tarif(self, **kwargs):
         sql = "SELECT * FROM Tarif WHERE "
         sql, parameters = self.format_args(sql, kwargs)
 
-        return self.execute(sql, parameters=parameters, fetchone=True)
+        return self.execute(sql, parameters=parameters, fetchall=True)
 
     def select_all_user(self):
         sql = "SELECT * FROM Users"

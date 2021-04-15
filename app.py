@@ -11,7 +11,6 @@ async def on_startup(dispatcher):
         db.create_table_users()
     except Exception as e:
         print(e)
-    print(db.select_all_user())
     # await create_db()
     # await add_to_database.add_item()
 
