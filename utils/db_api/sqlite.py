@@ -1,4 +1,5 @@
 import sqlite3
+from functools import cache
 
 
 class Database:
@@ -9,7 +10,14 @@ class Database:
     def connection(self):
         return sqlite3.connect(self.path_to_db)
 
-    def execute(self, sql: str, parameters: tuple = None, fetchone=False, fetchall=False, commit=False):
+    def execute(
+        self,
+        sql: str,
+        parameters: tuple = None,
+        fetchone=False,
+        fetchall=False,
+        commit=False,
+    ):
         if not parameters:
             parameters = ()
         connection = self.connection
@@ -77,9 +85,7 @@ class Database:
 
     @staticmethod
     def format_args(sql, parameters: dict):
-        sql += " AND ".join([
-            f"{item} = ?" for item in parameters
-        ])
+        sql += " AND ".join([f"{item} = ?" for item in parameters])
         return sql, tuple(parameters.values())
 
     def add_user(self, id: int, name: str, email: str = None, token: str = None):
@@ -90,11 +96,15 @@ class Database:
         """
         self.execute(sql, parameters=(id, name, email, token), commit=True)
 
-    def add_tarif(self, Name: str, Disk: str, ram: str, cpu: str, price: str, category: str):
+    def add_tarif(
+        self, Name: str, Disk: str, ram: str, cpu: str, price: str, category: str
+    ):
         sql = """
         INSERT INTO Tarif( Name, Disk, ram, cpu, price, category) VALUES(?, ?, ?, ?, ?, ?)
         """
-        self.execute(sql, parameters=(Name, Disk, ram, cpu, price, category), commit=True)
+        self.execute(
+            sql, parameters=(Name, Disk, ram, cpu, price, category), commit=True
+        )
 
     def add_os(self, name: str, distribution: str, slug: str):
         sql = """
@@ -143,12 +153,13 @@ class Database:
 
         return self.execute(sql, parameters=parameters, fetchone=True)
 
-    def get_user_token(self, **kwargs):
+    @cache
+    def get_user_token(self, user_id):
         # SQL_EXAMPLE = "SELECT * FROM Users where id=1 AND Name='John'"
         sql = "SELECT token FROM Users WHERE "
-        sql, parameters = self.format_args(sql, kwargs)
+        sql, parameters = self.format_args(sql, {"id": user_id})
 
-        return self.execute(sql, parameters=parameters, fetchone=True)
+        return self.execute(sql, parameters=parameters, fetchone=True)[0]
 
     def count_users(self):
         return self.execute("SELECT COUNT(*) FROM Users;", fetchone=True)
@@ -172,9 +183,11 @@ class Database:
 
 
 def logger(statement):
-    print(f"""
+    print(
+        f"""
 _____________________________________________________        
 Executing: 
 {statement}
 _____________________________________________________
-""")
+"""
+    )

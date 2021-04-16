@@ -15,10 +15,7 @@ banned_users = [123456789, 987654321]
 
 POSTGRES_URI = f"postgresql://{PGUSER}:{PGPASSWORD}@{ip}/{DATABASE}"
 aiogram_redis = {
-    'host': ip,
+    "host": ip,
 }
 
-redis = {
-    'address': (ip, 6379),
-    'encoding': 'utf8'
-}
+redis = {"address": (ip, 6379), "encoding": "utf8"}

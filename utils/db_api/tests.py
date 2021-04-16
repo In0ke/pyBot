@@ -4,8 +4,8 @@ db = Database()
 
 
 def test():
-    print(db.select_all_os())
-    print(db.select_all_aps())
+    os_list = db.select_all_os()
+    print(os_list[0][0])
 
 
 test()
