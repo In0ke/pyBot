@@ -1,0 +1,5 @@
+{{ name }}
+{{ id }}
+{{ ip }}
+{{ size_slug }}
+{{ status }}

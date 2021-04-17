@@ -1,52 +1,20 @@
-import requests
 from aiogram import types
 from aiogram.dispatcher.filters import Command
-from aiogram.types import CallbackQuery
+from loguru import logger
 
+from api.regru_cloud import cloud_api
+from entities.user import User
 from keyboards.inline.options import button
-from loader import dp, db
+from loader import dp
+from templates.render_templates import render_template
 
 
 @dp.message_handler(Command("server_list"))
 async def get_server_list(message: types.Message):
-    user_token = db.get_user_token(user_id=message.from_user.id)
-    token = {"Authorization": f"Bearer {user_token[0]}"}
-    url = "https://api.cloudvps.reg.ru/v1/reglets"
-    request = requests.get(url, headers=token)
-    response = request.json()
-    for value in response["reglets"]:
-        text = str(
-            (
-                value["name"],
-                value["id"],
-                value["ip"],
-                value["image"]["name"],
-                value["status"],
-            )
-        )
-        await message.answer(text=str(text), reply_markup=button)
-
-
-#
-# @dp.callback_query_handler(text_contains="start")
-# async def buying_pear(call: CallbackQuery, reglet_id: str):
-#     await call.answer(cache_time=60)
-#     pass
-#
-#
-# @dp.callback_query_handler(text_contains="stop")
-# async def buying_pear(call: CallbackQuery, reglet_id: str):
-#     await call.answer(cache_time=60)
-#     pass
-#
-#
-# @dp.callback_query_handler(text_contains="reboot")
-# async def buying_pear(call: CallbackQuery, reglet_id: str):
-#     await call.answer(cache_time=60)
-#     pass
-#
-#
-# @dp.callback_query_handler(text_contains="delete")
-# async def buying_pear(call: CallbackQuery, reglet_id: str):
-#     await call.answer(cache_time=60)
-#     pass
+    template_name = "get_reglet_list"
+    user = User(message.from_user.id)
+    server_data = cloud_api.get_server_list(user)
+    for reglet in server_data.reglets:
+        massage_txt = render_template(template_name, **reglet.dict())
+        logger.info(f"Send message for user {user.user_id} with message {massage_txt}")
+        await message.answer(massage_txt, reply_markup=button)
